@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مفاجأة رمضان</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Tahoma, sans-serif;
+  background: radial-gradient(circle at top, #0b1d3a, #000);
+  color:#fff;
+  text-align:center;
+  overflow-x:hidden;
+}
+
+.container{
+  max-width:420px;
+  margin:auto;
+  padding:15px;
+}
+
+h1{ color:#f5c16c; }
+
+/* فوانيس متحركة */
+.lantern{
+  position:fixed;
+  top:-120px;
+  width:60px;
+  animation:swing 3s ease-in-out infinite;
+}
+.l1{ left:10%; }
+.l2{ left:45%; animation-delay:1s; }
+.l3{ left:75%; animation-delay:2s; }
+
+@keyframes swing{
+  0%{ transform:rotate(-5deg); }
+  50%{ transform:rotate(5deg); }
+  100%{ transform:rotate(-5deg); }
+}
+
+/* باسورد */
+input{
+  padding:12px;
+  width:80%;
+  border-radius:15px;
+  border:none;
+  font-size:16px;
+  text-align:center;
+}
+
+button{
+  background:#f5c16c;
+  color:#000;
+  border:none;
+  padding:14px 25px;
+  font-size:16px;
+  border-radius:20px;
+  cursor:pointer;
+  margin-top:15px;
+}
+
+.hidden{ display:none; }
+
+/* صور */
+img{
+  width:100%;
+  border-radius:18px;
+  margin-top:20px;
+}
+
+.caption{
+  margin-top:8px;
+  color:#ffdca8;
+  font-size:15px;
+}
+
+/* رسالة */
+.message{
+  margin-top:25px;
+  line-height:1.9;
+  font-size:16px;
+}
+
+/* عداد */
+.countdown{
+  display:flex;
+  justify-content:space-around;
+  margin:20px 0;
+}
+.box{
+  background:#111c2e;
+  padding:10px;
+  border-radius:12px;
+  width:70px;
+}
+.box span{
+  font-size:22px;
+  font-weight:bold;
+  display:block;
+}
+
+iframe.music{
+  width:100%;
+  height:0;
+  border:none;
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- فوانيس -->
+<img class="lantern l1" src="https://cdn.pixabay.com/photo/2022/03/22/15/40/lantern-7085702_1280.png">
+<img class="lantern l2" src="https://cdn.pixabay.com/photo/2022/03/22/15/40/lantern-7085702_1280.png">
+<img class="lantern l3" src="https://cdn.pixabay.com/photo/2022/03/22/15/40/lantern-7085702_1280.png">
+
+<!-- شاشة الباسورد -->
+<div class="container" id="login">
+  <h1>💌 مفاجأة</h1>
+  <p>ادخلي للمفاجأة يا روحي 💖</p>
+  <input type="password" id="password" placeholder="اكتبي الباسورد">
+  <br>
+  <button onclick="checkPassword()">دخول ✨</button>
+  <p id="error" style="color:#ff8080"></p>
+</div>
+
+<!-- محتوى الصفحة -->
+<div class="container hidden" id="content">
+  <h1>رمضان معاك أحلى 🌙❤️</h1>
+
+  <!-- تشغيل يوتيوب كصوت خلفي -->
+  <iframe class="music"
+    id="ytmusic"
+    src="https://www.youtube.com/embed/V1rv0sCa5b0?autoplay=1&loop=1&playlist=V1rv0sCa5b0"
+    allow="autoplay; encrypted-media">
+  </iframe>
+
+  <!-- العداد -->
+  <div class="countdown">
+    <div class="box"><span id="days">0</span>يوم</div>
+    <div class="box"><span id="hours">0</span>ساعة</div>
+    <div class="box"><span id="minutes">0</span>دقيقة</div>
+    <div class="box"><span id="seconds">0</span>ثانية</div>
+  </div>
+
+  <!-- الرسالة الكبيرة -->
+  <div class="message">
+    كل سنه وانتي معايا يا نور عيني  
+    كل سنه وانتي منوره حياتي  
+    ويعودها علينا تاني وتالت ومليون 😂  
+    بحبك يا بطاطا  
+    ربنا يخليكي ليا  
+    يا اجمل شخص ف الدنيا  
+    يا ست البنات  
+    <strong>بعشقك يا بت يا فاطمه ❤️</strong>
+  </div>
+
+  <!-- الصور -->
+  <img src="https://i.postimg.cc/zvwp4LGQ/20260127-155107(1).jpg">
+  <div class="caption">وجودك في رمضان بيخلّي كل لحظة أحن 💖</div>
+
+  <img src="https://i.postimg.cc/vZ02Q6LJ/20260127-162137.jpg">
+  <div class="caption">وانتي أجمل شيء بيحصل في أيامي 🌙</div>
+</div>
+
+<script>
+// الباسورد + تشغيل الموسيقى
+function checkPassword(){
+  if(document.getElementById("password").value === "fatma"){
+    document.getElementById("login").classList.add("hidden");
+    document.getElementById("content").classList.remove("hidden");
+    document.getElementById("ytmusic").style.display = "block";
+  }else{
+    document.getElementById("error").innerText = "الباسورد غلط يا قمر 😅";
+  }
+}
+
+// عداد رمضان
+const targetDate = new Date("2026-02-18T00:00:00").getTime();
+setInterval(function(){
+  const now = new Date().getTime();
+  const diff = targetDate - now;
+
+  document.getElementById("days").innerText = Math.max(0, Math.floor(diff / (1000*60*60*24)));
+  document.getElementById("hours").innerText = Math.max(0, Math.floor((diff % (1000*60*60*24)) / (1000*60*60)));
+  document.getElementById("minutes").innerText = Math.max(0, Math.floor((diff % (1000*60*60)) / (1000*60)));
+  document.getElementById("seconds").innerText = Math.max(0, Math.floor((diff % (1000*60)) / 1000));
+}, 1000);
+</script>
+
+</body>
+</html>
