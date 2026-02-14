@@ -23,7 +23,7 @@ body{
 
 h1{ color:#f5c16c; }
 
-/* فوانيس */
+/* فوانيس متحركة */
 .lantern{
   position:fixed;
   top:-120px;
@@ -63,18 +63,27 @@ button{
 
 .hidden{ display:none; }
 
+/* صور */
 img{
   width:100%;
   border-radius:18px;
   margin-top:20px;
 }
 
+.caption{
+  margin-top:8px;
+  color:#ffdca8;
+  font-size:15px;
+}
+
+/* رسالة */
 .message{
   margin-top:25px;
   line-height:1.9;
   font-size:16px;
 }
 
+/* عداد */
 .countdown{
   display:flex;
   justify-content:space-around;
@@ -92,17 +101,11 @@ img{
   display:block;
 }
 
-audio{
+iframe.music{
+  width:100%;
+  height:0;
+  border:none;
   display:none;
-}
-#playBtn{
-  background:#f5c16c;
-  color:#000;
-  padding:14px 25px;
-  font-size:16px;
-  border-radius:20px;
-  margin-top:20px;
-  cursor:pointer;
 }
 </style>
 </head>
@@ -114,7 +117,7 @@ audio{
 <img class="lantern l2" src="https://cdn.pixabay.com/photo/2022/03/22/15/40/lantern-7085702_1280.png">
 <img class="lantern l3" src="https://cdn.pixabay.com/photo/2022/03/22/15/40/lantern-7085702_1280.png">
 
-<!-- شاشة الدخول -->
+<!-- شاشة الباسورد -->
 <div class="container" id="login">
   <h1>💌 مفاجأة</h1>
   <p>ادخلي للمفاجأة يا روحي 💖</p>
@@ -124,19 +127,16 @@ audio{
   <p id="error" style="color:#ff8080"></p>
 </div>
 
-<!-- زر تشغيل المفاجأة -->
-<div class="container hidden" id="startContainer">
-  <button id="playBtn">تشغيل المفاجأة 🎵🌙</button>
-</div>
-
-<!-- المحتوى -->
+<!-- محتوى الصفحة -->
 <div class="container hidden" id="content">
-  <h1>رمضان معاكِ أحلى 🌙❤️</h1>
+  <h1>رمضان معاك أحلى 🌙❤️</h1>
 
-  <!-- موسيقى -->
-  <audio id="bgMusic" loop>
-    <source src="https://dl1.albumaty.com/mp3/13216.mp3" type="audio/mpeg">
-  </audio>
+  <!-- تشغيل يوتيوب كصوت خلفي -->
+  <iframe class="music"
+    id="ytmusic"
+    src="https://www.youtube.com/embed/V1rv0sCa5b0?autoplay=1&loop=1&playlist=V1rv0sCa5b0"
+    allow="autoplay; encrypted-media">
+  </iframe>
 
   <!-- العداد -->
   <div class="countdown">
@@ -146,45 +146,37 @@ audio{
     <div class="box"><span id="seconds">0</span>ثانية</div>
   </div>
 
-  <!-- الرسالة -->
+  <!-- الرسالة الكبيرة -->
   <div class="message">
-    كل سنة وانتي معايا يا نور عيني<br>
-    كل سنة وانتي منورة حياتي<br>
-    ويعودها علينا تاني وتالت ومليون 😂<br>
-    بحبك يا فروحة<br>
-    ربنا يخليكي ليا<br>
-    يا أجمل حد في الدنيا<br>
-    يا ست البنات<br>
-    <strong>بعشقك يا فرح ❤️</strong><br><br>
-    <strong>من حبيبك بلال 💌</strong>
+    كل سنه وانتي معايا يا نور عيني  
+    كل سنه وانتي منوره حياتي  
+    ويعودها علينا تاني وتالت ومليون 😂  
+    بحبك يا بطاطا  
+    ربنا يخليكي ليا  
+    يا اجمل شخص ف الدنيا  
+    يا ست البنات  
+    <strong>بعشقك يا بت يا فاطمه ❤️</strong>
   </div>
 
-  <!-- الصور النهائية -->
-  <img src="https://i.ibb.co/GQm1Q5qP/IMG-20260214-WA0151.jpg">
-  <img src="https://i.ibb.co/xSFQ4sbX/IMG-20260214-WA0150.jpg">
-  <img src="https://i.ibb.co/C52Sxvgh/IMG-20260214-WA0149.jpg">
-  <img src="https://i.ibb.co/pvZy4ctR/IMG-20260214-WA0147.jpg">
-  <img src="https://i.ibb.co/GvGx3LjY/IMG-20260214-WA0146.jpg">
+  <!-- الصور -->
+  <img src="https://i.postimg.cc/zvwp4LGQ/20260127-155107(1).jpg">
+  <div class="caption">وجودك في رمضان بيخلّي كل لحظة أحن 💖</div>
+
+  <img src="https://i.postimg.cc/vZ02Q6LJ/20260127-162137.jpg">
+  <div class="caption">وانتي أجمل شيء بيحصل في أيامي 🌙</div>
 </div>
 
 <script>
-// الباسورد
+// الباسورد + تشغيل الموسيقى
 function checkPassword(){
-  if(document.getElementById("password").value === "farah"){
+  if(document.getElementById("password").value === "fatma"){
     document.getElementById("login").classList.add("hidden");
-    document.getElementById("startContainer").classList.remove("hidden");
+    document.getElementById("content").classList.remove("hidden");
+    document.getElementById("ytmusic").style.display = "block";
   }else{
     document.getElementById("error").innerText = "الباسورد غلط يا قمر 😅";
   }
 }
-
-// زر تشغيل المفاجأة
-document.getElementById("playBtn").onclick = function(){
-    var audio = document.getElementById("bgMusic");
-    audio.play();
-    document.getElementById("startContainer").classList.add("hidden");
-    document.getElementById("content").classList.remove("hidden");
-};
 
 // عداد رمضان
 const targetDate = new Date("2026-02-18T00:00:00").getTime();
